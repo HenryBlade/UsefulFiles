@@ -98,10 +98,70 @@ public class arrayUtils {
   /**
   * Sorts an array in increading order.
   * Sorting method used is Quick Sort.
+  * DOES NOT WORK CURRENTLY
   * @param arr The array to sort.
   */
   public static void quickSort(int[] arr) {
-    // TODO
+    if (arr.length == 1) {
+			return;
+		} else if (arr.length == 2) {
+			if (arr[1] < arr[0]) {
+				int temp = arr[0];
+				arr[0] = arr[1];
+				arr[1] = temp;
+			}
+		} else {
+			int pivot = arr[arr.length / 2];
+			int low = 0, high = arr.length - 1;
+			while (low < high) {
+				while (arr[low] < pivot && low < arr.length) {
+					low++;
+				}
+				while (arr[high] >= pivot && high > 0) {
+					high--;
+				}
+				int temp = arr[low];
+				arr[low] = arr[high];
+				arr[high] = temp;
+			}
+
+			int[] L = new int[low];
+			int[] R = new int[arr.length - high];
+
+			for (int i = 0; i < L.length; i++)
+				L[i] = arr[i];
+			for (int i = 0; i < R.length; i++)
+				R[i] = arr[i + high];
+
+			quickSort(L);
+			quickSort(R);
+
+			int i = 0;
+			for (int j = 0; j < L.length; j++) {
+				arr[i] = L[j];
+				i++;
+			}
+			arr[i] = pivot;
+			i++;
+			for (int j = 0; j < R.length; j++) {
+				arr[i] = R[j];
+				i++;
+			}
+		}
   }
+
+  /**
+  * Prints an array in a readable way.
+  * @param arr The array to print.
+  */
+  public static void printArray(int[] arr) {
+		System.out.print("{");
+		for (int x : arr) {
+			System.out.print(x);
+			if (x != arr[arr.length - 1])
+				System.out.print(", ");
+		}
+		System.out.println("}");
+	}
 
 }
