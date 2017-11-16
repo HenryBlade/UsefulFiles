@@ -13,38 +13,95 @@ public class arrayUtils {
   * Sorting method used is Insertion Sort.
   * @param arr The array to sort.
   */
-  public static void sortArray(int[] arr) {
+  public static void insertionSort(int[] arr) {
     for (int i = 1; i < arr.length; i++) {
-      int val = arr[i];
-      int j = i - 1;
-      while (j >= 0 && val < arr[j]) {
-        arr[j+1] = arr[j];
-        j--;
-      }
-      arr[j+1] = val;
-    }
+			int temp = arr[i];
+			int j = i - 1;
+			while (j >= 0 && temp < arr[j]) {
+				arr[j + 1] = arr[j];
+				j--;
+			}
+			arr[j + 1] = temp;
+		}
   }
 
   /**
-  * Merges two arrays in the style of arr1[0], arr2[0], arr1[1], arr2[1]...
-  * @param arr1 The first array.
-  * @param arr2 The second array.
-  * @return The merged array.
+  * Sorts an array in increading order.
+  * Sorting method used is Selection Sort.
+  * @param arr The array to sort.
   */
-  public static int[] zipperMerge(int[] arr1, int[] arr2) {
-    int[] merged = new int[arr1.length+arr2.length];
-    if (arr1.length == arr2.length) {
-      int arrIndex = 0;
-      for (int i = 0; i < arr1.length; i++) {
-        int val1 = arr1[i];
-        int val2 = arr2[i];
-        merged[arrIndex] = val1;
-        arrIndex++;
-        merged[arrIndex] = val2;
-        arrIndex++;
-      }
-    }
-    return merged;
+  public static void selectionSort(int[] arr) {
+    for (int i = 0; i < arr.length; i++) {
+			int mIndex = i;
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[j] < arr[mIndex]) {
+					mIndex = j;
+				}
+			}
+			int temp = arr[mIndex];
+			arr[mIndex] = arr[i];
+			arr[i] = temp;
+		}
+  }
+
+  /**
+  * Sorts an array in increading order.
+  * Sorting method used is Merge Sort.
+  * @param arr The array to sort.
+  */
+  public static void mergeSort(int[] arr) {
+    if (arr.length == 1) {
+			return;
+		} else if (arr.length == 2) {
+			if (arr[1] < arr[0]) {
+				int temp = arr[0];
+				arr[0] = arr[1];
+				arr[1] = temp;
+			}
+		} else {
+			int m = arr.length / 2;
+			int[] L = new int[m];
+			int[] R = new int[arr.length - m];
+
+			for (int i = 0; i < L.length; i++)
+				L[i] = arr[i];
+			for (int i = 0; i < R.length; i++)
+				R[i] = arr[i + m];
+
+			mergeSort(L);
+			mergeSort(R);
+
+			int i = 0, j = 0, index = 0;
+			while (i < L.length && j < R.length) {
+				if (L[i] < R[j]) {
+					arr[index] = L[i];
+					i++;
+				} else {
+					arr[index] = R[j];
+					j++;
+				}
+				index++;
+			}
+			while (i < L.length) {
+				arr[index] = L[i];
+				i++;
+				index++;
+			}
+			while (j < R.length) {
+				arr[index] = R[j];
+				j++;
+				index++;
+			}
+		}
+  }
+
+  /**
+  * Sorts an array in increading order.
+  * Sorting method used is Quick Sort.
+  * @param arr The array to sort.
+  */
+  public static void quickSort(int[] arr) {
+    // TODO
   }
 
 }
