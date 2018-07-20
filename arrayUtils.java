@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 /**
 * A set of methods that can be use to manipulate arrys.
@@ -9,7 +10,7 @@ import java.io.*;
 public class arrayUtils {
 
   /**
-  * Sorts an array in increading order.
+  * Sorts an array in increasing order.
   * Sorting method used is Insertion Sort.
   * @param arr The array to sort.
   */
@@ -26,7 +27,7 @@ public class arrayUtils {
   }
 
   /**
-  * Sorts an array in increading order.
+  * Sorts an array in increasing order.
   * Sorting method used is Selection Sort.
   * @param arr The array to sort.
   */
@@ -38,14 +39,12 @@ public class arrayUtils {
 					mIndex = j;
 				}
 			}
-			int temp = arr[mIndex];
-			arr[mIndex] = arr[i];
-			arr[i] = temp;
+      swap(arr, mIndex, i);
 		}
   }
 
   /**
-  * Sorts an array in increading order.
+  * Sorts an array in increasing order.
   * Sorting method used is Merge Sort.
   * @param arr The array to sort.
   */
@@ -54,19 +53,11 @@ public class arrayUtils {
 			return;
 		} else if (arr.length == 2) {
 			if (arr[1] < arr[0]) {
-				int temp = arr[0];
-				arr[0] = arr[1];
-				arr[1] = temp;
+        swap(arr, 0, 1);
 			}
 		} else {
-			int m = arr.length / 2;
-			int[] L = new int[m];
-			int[] R = new int[arr.length - m];
-
-			for (int i = 0; i < L.length; i++)
-				L[i] = arr[i];
-			for (int i = 0; i < R.length; i++)
-				R[i] = arr[i + m];
+      int[] L = Arrays.copyOfRange(arr, 0, arr.length/2);
+      int[] R = Arrays.copyOfRange(arr, arr.length/2, arr.length);
 
 			mergeSort(L);
 			mergeSort(R);
@@ -96,58 +87,67 @@ public class arrayUtils {
   }
 
   /**
-  * Sorts an array in increading order.
+  * Sorts an array in increasing order.
   * Sorting method used is Quick Sort.
-  * DOES NOT WORK CURRENTLY
   * @param arr The array to sort.
   */
   public static void quickSort(int[] arr) {
-    if (arr.length == 1) {
-			return;
-		} else if (arr.length == 2) {
-			if (arr[1] < arr[0]) {
-				int temp = arr[0];
-				arr[0] = arr[1];
-				arr[1] = temp;
-			}
-		} else {
-			int pivot = arr[arr.length / 2];
-			int low = 0, high = arr.length - 1;
-			while (low < high) {
-				while (arr[low] < pivot && low < arr.length) {
-					low++;
-				}
-				while (arr[high] >= pivot && high > 0) {
-					high--;
-				}
-				int temp = arr[low];
-				arr[low] = arr[high];
-				arr[high] = temp;
-			}
+    if (arr.length <= 1) {
+      return;
+    } else {
+      int pivot = arr[arr.length-1];
+      int index = 0;
+      for (int i = 0; i < arr.length-1; i++) {
+        if (arr[i] <= pivot) {
+          swap(arr, index, i);
+          index++;
+        }
+      }
+      swap(arr, index, arr.length-1);
 
-			int[] L = new int[low];
-			int[] R = new int[arr.length - high];
+      int[] low = Arrays.copyOfRange(arr, 0, index);
+      int[] high = Arrays.copyOfRange(arr, index+1, arr.length);
 
-			for (int i = 0; i < L.length; i++)
-				L[i] = arr[i];
-			for (int i = 0; i < R.length; i++)
-				R[i] = arr[i + high];
+      quickSort(low);
+      quickSort(high);
 
-			quickSort(L);
-			quickSort(R);
+      for (int i = 0; i < low.length; i++) {
+        arr[i] = low[i];
+      } for (int i = 0; i < high.length; i++) {
+        arr[i+index+1] = high[i];
+      }
+    }
+  }
 
-			int i = 0;
-			for (int j = 0; j < L.length; j++) {
-				arr[i] = L[j];
-				i++;
-			}
-			arr[i] = pivot;
-			i++;
-			for (int j = 0; j < R.length; j++) {
-				arr[i] = R[j];
-				i++;
-			}
-		}
+  /**
+  * Sorts an array in increasing order.
+  * Sorting method used is Bubble Sort.
+  * @param arr The array to sort.
+  */
+  public static void bubbleSort(int[] arr) {
+    for (int i = 0; i < arr.length; i++) {
+      boolean swapped = false;
+      for (int j = 0; j < arr.length-1-i; j++) {
+        if (arr[j] > arr[j+1]) {
+          swap(arr, j, j+1);
+          swapped = true;
+        }
+      }
+      if (!swapped)
+        break;
+    }
+  }
+
+  /**
+  * Swaps two array indicies
+  * @param arr The array to use
+  * @param i The first index to swap
+  * @param j The second index to swap
+  */
+  public static void swap(int[] arr, int i, int j){
+    int temp = arr[j];
+    arr[j] = arr[i];
+    arr[i] = temp;
   }
 
   /**
@@ -155,13 +155,13 @@ public class arrayUtils {
   * @param arr The array to print.
   */
   public static void printArray(int[] arr) {
-		System.out.print("{");
-		for (int x : arr) {
-			System.out.print(x);
-			if (x != arr[arr.length - 1])
-				System.out.print(", ");
-		}
-		System.out.println("}");
-	}
+      System.out.print("{");
+      for (int i = 0; i < arr.length; i++) {
+        System.out.print(arr[i]);
+        if (i < arr.length-1)
+          System.out.print(", ");
+      }
+      System.out.println("}");
+  }
 
 }
