@@ -16,14 +16,14 @@ public class arrayUtils {
   */
   public static void insertionSort(int[] arr) {
     for (int i = 1; i < arr.length; i++) {
-			int temp = arr[i];
-			int j = i - 1;
-			while (j >= 0 && temp < arr[j]) {
-				arr[j + 1] = arr[j];
-				j--;
-			}
-			arr[j + 1] = temp;
-		}
+      int temp = arr[i];
+      int j = i - 1;
+      while (j >= 0 && temp < arr[j]) {
+        arr[j + 1] = arr[j];
+        j--;
+      }
+      arr[j + 1] = temp;
+    }
   }
 
   /**
@@ -33,14 +33,14 @@ public class arrayUtils {
   */
   public static void selectionSort(int[] arr) {
     for (int i = 0; i < arr.length; i++) {
-			int mIndex = i;
-			for (int j = i + 1; j < arr.length; j++) {
-				if (arr[j] < arr[mIndex]) {
-					mIndex = j;
-				}
-			}
+      int mIndex = i;
+      for (int j = i + 1; j < arr.length; j++) {
+        if (arr[j] < arr[mIndex]) {
+          mIndex = j;
+        }
+      }
       swap(arr, mIndex, i);
-		}
+    }
   }
 
   /**
@@ -59,31 +59,31 @@ public class arrayUtils {
       int[] L = Arrays.copyOfRange(arr, 0, arr.length/2);
       int[] R = Arrays.copyOfRange(arr, arr.length/2, arr.length);
 
-			mergeSort(L);
-			mergeSort(R);
+      mergeSort(L);
+      mergeSort(R);
 
-			int i = 0, j = 0, index = 0;
-			while (i < L.length && j < R.length) {
-				if (L[i] < R[j]) {
-					arr[index] = L[i];
-					i++;
-				} else {
-					arr[index] = R[j];
-					j++;
-				}
-				index++;
-			}
-			while (i < L.length) {
-				arr[index] = L[i];
-				i++;
-				index++;
-			}
-			while (j < R.length) {
-				arr[index] = R[j];
-				j++;
-				index++;
-			}
-		}
+      int i = 0, j = 0, index = 0;
+      while (i < L.length && j < R.length) {
+        if (L[i] < R[j]) {
+          arr[index] = L[i];
+          i++;
+        } else {
+          arr[index] = R[j];
+          j++;
+        }
+        index++;
+      }
+      while (i < L.length) {
+        arr[index] = L[i];
+        i++;
+        index++;
+      }
+      while (j < R.length) {
+        arr[index] = R[j];
+        j++;
+        index++;
+      }
+    }
   }
 
   /**
@@ -155,13 +155,13 @@ public class arrayUtils {
   * @param arr The array to print.
   */
   public static void printArray(int[] arr) {
-      System.out.print("{");
-      for (int i = 0; i < arr.length; i++) {
-        System.out.print(arr[i]);
-        if (i < arr.length-1)
-          System.out.print(", ");
-      }
-      System.out.println("}");
+    System.out.print("{");
+    for (int i = 0; i < arr.length; i++) {
+      System.out.print(arr[i]);
+      if (i < arr.length-1)
+        System.out.print(", ");
+    }
+    System.out.println("}");
   }
 
 }
