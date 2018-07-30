@@ -1,8 +1,0 @@
---extra-index-url http://pypi.digi.com/simple/
---trusted-host pypi.digi.com
-
-authenticate==1.2
-pytest==3.0.6
-requests==2.13.0
-beautifulsoup4==4.5.3
-confluencetools==1.2
